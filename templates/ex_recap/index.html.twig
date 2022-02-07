@@ -1,0 +1,78 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello ExRecapController!{% endblock %}
+
+{% block body %}
+<style>
+    .example-wrapper { margin: 1em auto; max-width: 800px; width: 95%; font: 18px/1.5 sans-serif; }
+    .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
+</style>
+
+<div class="example-wrapper">
+    <h1>Hello {{ controller_name }}! ✅</h1>
+
+    <h2>Exercice sur controllers et vues</h2>
+    <ul>
+        <li>1. Créez un nouveau projet</li>
+        <li>2. Créez un controller</li>
+        <li>3. Créez quatre actions!</li>
+        <ul>
+            <li> 
+                <a href="{{path ('ex_bienvenue')}}">
+                3.1. Action capable d'afficher un message de bienvenue
+                </a>
+            </li>
+            <li> 
+                <a href="{{path ('ex_recap_prenom', {prenom : 'Caroline'})}}">
+                3.2. Action capable d'afficher un message de bienvenue pour un nom tapé dans l'URL
+                </a>            
+            </li>
+            <li> 
+                <a href="{{path ('ex_recap_genre', {prenom : 'Caroline'})}}">
+                3.3. Action qui affiche un message de bienvenue pour un nom tapé dans l'URL et le genre qui correspond normalement à ce nom. 
+                </a>            
+            </li>
+            <li> 
+                <a href="{{path ('ex_recap_genre', {prenom : 'Alexis'})}}">
+                3.4. Créez une nouvelle version de l'action précédente. Cette fois on affichera une image selon le genre dans la vue.
+                </a>            
+            </li>
+        </ul>
+    </ul>
+    
+
+La vue affichera un message du type : <i>Bienvenue <b>Prenom</b>, vous êtes probablement <b>Genre</b></i>  
+<br>
+Utilisez l'API **genderize**, capable de vous renvoyer des infos sur le genre probable d'un nom.
+Vous devez faire des appels à l'API dans ce format:
+<br>
+<i>https://api.genderize.io/?name=luisa</i>
+<br>
+Essayez dans votre navigateur avec de noms différents.<br>
+Qu'est-ce que l'API renvoie? observez bien votre navigateur! 
+<br><br>
+Pour pouvoir faire un appel à l'API dans une action du controller dans Symfony, vous devez injecter un objet de la classe **HttpClientInterface** dans l'action (faites comme avec l'objet Request...)
+<br><br>
+Vous devez coder ces pas dans l'action du controller : 
+<br>
+<ol>
+    <li>Obtenir le **nom** qui a été tapé dans l'url</li>
+    <li>Faire l'appel à l'API</li>
+    <li>Obtenir le contenu du résultat de la requête (souvent du JSON)</li>
+    <li>Si le contenu est JSON, transformer ce contenu en array</li>
+    <li>Envoyer les infos dont vous avez besoin à la vue</li>
+</ol>
+<br>
+Voici un exemple de code pour faire appel à une API fictive (pas 2 à 5), le reste vous devez savoir le faire:
+
+<div>
+    <i>public function uneAction (Request $request, HttpClientInterface $client): Response {<br>
+
+    $response = $client->request ("GET", "https://monapi.com/?parametre1=valeur1&parametre2=valeur2");
+    $contenu = $response->getContent();
+    $array = json_decode ($contenu, true);<br>
+    }</i>
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,24 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Hello Ex Genre!{% endblock %}
+
+{% block body %}
+
+<div>
+    Bienvenue {{name}}, vous êtes probablement ({{probability*100}} %)
+    {% if gender == "female" %}
+        une femme
+        <img style="height: 250px;" class="imgGenre" src="/img/female.png">
+
+        {% elseif gender == "male" %}
+            un homme
+        <img style="height: 250px;" class="imgGenre" src="/img/homme.png">
+
+        {% else %}
+            assexué
+        <img style="height: 250px;" class="imgGenre" src="/img/assexue.png">
+
+    {% endif %}
+</div>
+
+{% endblock %}
